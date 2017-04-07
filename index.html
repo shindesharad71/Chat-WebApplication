@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ChatIO</title>
+    <!--<style>
+        #mainWrapper {
+            display: none;
+        }
+    </style>-->
+</head>
+
+<body>
+    <div id="container">
+        <div id="namesWrapper">
+            <h2>ChatIO</h2>
+            <p>Create Username</p>
+            <form id="usernameForm">
+                <input type="text" size="25" id="username">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div id="mainWrapper">
+            <h2>ChatIO</h2>
+            <div id="chatWrapper">
+                <div id="chatWindow"></div>
+                <form id="messageForm">
+                    <input type="text" placeholder="Say Something..." id="message">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+
+            <div id="chatWrapper">
+                <div id="users"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+
+    <script>
+        $(function() {
+            var socket = io.connect();
+
+            var $messageForm = $('#messageForm');
+            var $message = $('#message');
+            var $chat = $('#chatWindow');
+
+            $messageForm.submit(function(e) {
+                e.preventDefault();
+                socket.emit('send message', $message.val());
+                $message.val('');
+            });
+
+            socket.on('new message', function(data) {
+                $chat.append(data.msg + '<br>');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
