@@ -1,16 +1,20 @@
+ul,
+li {
+    list-style: none;
+}
+
 .app-title {
     margin: 0px;
     font-size: 55px;
     background: #606060;
     padding: 10px;
     color: #fff;
-    box-shadow: 2px 2px 5px #ccc;
+    box-shadow: 2px 2px 7px #ccc;
 }
 
 #mainWrapper {
-    margin-top: 95px;
+    margin-top: 75px;
     padding: 20px;
-    border: 1px solid #ccc;
     /* display: none; */
 }
 
@@ -20,6 +24,33 @@
     padding: 20px;
     border: 1px solid #fff;
     border-radius: 11px;
-    box-shadow: 2px 2px 5px #ccc;
+    box-shadow: 4px 4px 7px #ccc;
     display: none;
+}
+
+#chatWrapper {
+    box-shadow: 4px 4px 7px #ccc;
+    border: 1px solid #ccc;
+}
+
+#chatWindow {
+    border: 1px solid #000;
+    margin: 0px 0px 5px 5px;
+}
+
+#users {
+    margin-bottom: 10px;
+}
+
+#users li {
+    border-bottom: 1px solid #ccc;
+    padding: 9px;
+}
+
+.sendBox {
+    background: #d3d3d3;
+    margin-top: 25px;
+    padding: 10px;
+    border: 1px solid #000;
+    margin-bottom: 25px;
 }
