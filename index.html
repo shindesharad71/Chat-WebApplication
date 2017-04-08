@@ -2,44 +2,46 @@
 <html>
 
 <head>
-    <title>ChatIO</title>
-    <style>
-        #mainWrapper {
-            display: none;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
-    <div id="container">
-        <div id="namesWrapper">
-            <h2>ChatIO</h2>
-            <p>Create Username</p>
-            <div id="error"></div>
+    <h1 class="text-center app-title"><b>Chat Application</b></h1>
+    <div class="container text-center" id="namesWrapper">
+        <div id="error"></div>
+        <div class="col-md-offset-3 col-md-6" id="nameBox">
+            <h3 class="text-success">Create Nick Name</h3>
+            <br>
             <form id="usernameForm">
-                <input type="text" size="25" id="username">
-                <input type="submit" value="Submit">
+                <div class="form-group">
+                    <input class="input-lg" type="text" maxlength="15" id="username" placeholder="Enter Nick Name"> &nbsp;&nbsp;
+                    <input class="btn btn-lg btn-primary" type="submit" value="Submit">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="mainWrapper">
+        <div class="col-md-offset-1 col-md-6" id="chatWrapper">
+            <div id="chatWindow">Chat Messages</div>
+            <form id="messageForm">
+                <input class="input-lg" type="text" placeholder="Say Something..." id="message">&nbsp;&nbsp;
+                <input class="btn btn-success" type="submit" value="Send">
             </form>
         </div>
 
-        <div id="mainWrapper">
-            <h2>ChatIO</h2>
-            <div id="chatWrapper">
-                <div id="chatWindow"></div>
-                <form id="messageForm">
-                    <input type="text" placeholder="Say Something..." id="message">
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-
-            <div id="chatWrapper">
-                <div id="users"></div>
-            </div>
+        <div class="col-md-offset-1 col-md-3" id="chatWrapper">
+            <div id="users">Users</div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script>
         $(function() {

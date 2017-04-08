@@ -1,0 +1,25 @@
+.app-title {
+    margin: 0px;
+    font-size: 55px;
+    background: #606060;
+    padding: 10px;
+    color: #fff;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+#mainWrapper {
+    margin-top: 95px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    /* display: none; */
+}
+
+#nameBox {
+    background: #ccc;
+    margin-top: 105px;
+    padding: 20px;
+    border: 1px solid #fff;
+    border-radius: 11px;
+    box-shadow: 2px 2px 5px #ccc;
+    display: none;
+}
