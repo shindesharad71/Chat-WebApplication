@@ -28,7 +28,7 @@
     <div class="container" id="mainWrapper">
         <div class="col-md-offset-1 col-md-6" id="chatWrapper">
             <h4 class="text-center" style="margin-bottom: 0px; background: #d3d3d3; padding: 20px 20px; border: 2px solid #000;">Chat Messages</h4>
-            <div id="chatWindow">Messages goes hrere <br> here<br>messages here</div>
+            <div id="chatWindow"></div>
             <form id="messageForm">
                 <div class="sendBox">
                     <div class="form-group">
@@ -59,7 +59,7 @@
     <script>
         $(function() {
             var socket = io.connect();
-
+            var currentUser = '';
             var $messageForm = $('#messageForm');
             var $message = $('#message');
             var $chat = $('#chatWindow');
@@ -72,6 +72,7 @@
                 e.preventDefault();
                 socket.emit('new user', $username.val(), function(data) {
                     if (data) {
+                        currentUser = $username.val();
                         $('#namesWrapper').hide();
                         $('#mainWrapper').show();
                     } else {
@@ -83,7 +84,7 @@
             socket.on('usernames', function(data) {
                 var html = '';
                 for (i = 0; i < data.length; i++) {
-                    html += data[i] + '<br>';
+                    html += '<li>' + data[i] + '</li>';
                 }
                 $users.html(html);
             });
@@ -95,7 +96,12 @@
             });
 
             socket.on('new message', function(data) {
-                $chat.append('<strong>' + data.user + '</strong>: ' + data.msg + '<br>');
+                if (data.user != currentUser) {
+                    $chat.append('<div class="other-msg"><strong>' + data.user + '</strong>: ' + data.msg + '</div><br>');
+                } else {
+                    $chat.append('<div class="my-msg"><strong>' + data.user + '</strong>: ' + data.msg + '</div><br>');
+                }
+
             });
         });
     </script>

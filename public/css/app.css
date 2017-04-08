@@ -15,7 +15,7 @@ li {
 #mainWrapper {
     margin-top: 15px;
     padding: 20px;
-    /* display: none; */
+    display: none;
 }
 
 #nameBox {
@@ -25,7 +25,7 @@ li {
     border: 1px solid #fff;
     border-radius: 11px;
     box-shadow: 4px 4px 7px #ccc;
-    display: none;
+    margin-bottom: 105px;
 }
 
 #chatWrapper {
@@ -37,6 +37,38 @@ li {
     border: 1px solid #000;
     margin: 0px 0px 5px 0px;
     height: 250px;
+    overflow-y: scroll;
+}
+
+.my-msg {
+    float: right;
+    background: #dedede;
+    padding: 15px;
+    margin: 7px;
+    clear: both;
+    position: relative;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    -webkit-box-shadow: 2px 2px 4px #888;
+    -moz-box-shadow: 2px 2px 4px #888;
+    box-shadow: 2px 2px 4px #888;
+}
+
+.other-msg {
+    float: left;
+    background: #606060;
+    color: #fff;
+    padding: 15px;
+    margin: 7px;
+    clear: both;
+    position: relative;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    -webkit-box-shadow: 2px 2px 4px #888;
+    -moz-box-shadow: 2px 2px 4px #888;
+    box-shadow: 2px 2px 4px #888;
 }
 
 #users {
