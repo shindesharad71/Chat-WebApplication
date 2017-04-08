@@ -17,7 +17,7 @@
             <br>
             <form id="usernameForm">
                 <div class="form-group">
-                    <input class="input-lg" type="text" maxlength="15" id="username" placeholder="Enter Nick Name"> &nbsp;&nbsp;
+                    <input class="input-lg" autocomplete="off" type="text" maxlength="15" id="username" placeholder="Enter Nick Name"> &nbsp;&nbsp;
                     <input class="btn btn-lg btn-primary" type="submit" value="Submit">
                 </div>
 
@@ -66,7 +66,7 @@
             var $usernameForm = $('#usernameForm');
             var $users = $('#users');
             var $username = $('#username');
-            var error = $('#error');
+            var $error = $('#error');
 
             $usernameForm.submit(function(e) {
                 e.preventDefault();
@@ -76,7 +76,7 @@
                         $('#namesWrapper').hide();
                         $('#mainWrapper').show();
                     } else {
-                        $error.html('Username is taken');
+                        $error.html('<div class="col-md-offset-3 col-md-6 alert alert-danger" style="margin-top: 35px;">Username is taken</div>');
                     }
                 });
             });
@@ -97,9 +97,9 @@
 
             socket.on('new message', function(data) {
                 if (data.user != currentUser) {
-                    $chat.append('<div class="other-msg"><strong>' + data.user + '</strong>: ' + data.msg + '</div><br>');
+                    $chat.append('<div class="other-msg"><strong><i><u>' + data.user + '</u></i></strong>:<br>' + data.msg + '</div><br>');
                 } else {
-                    $chat.append('<div class="my-msg"><strong>' + data.user + '</strong>: ' + data.msg + '</div><br>');
+                    $chat.append('<div class="my-msg">' + data.msg + '</div><br>');
                 }
 
             });
