@@ -37,6 +37,11 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('new message', { msg: data, user: socket.username });
     });
 
+    // Typing...
+    socket.on("typing", function(data) {
+        io.sockets.emit("isTyping", { isTyping: data, person: socket.username });
+    });
+
     // Desconnect Actions
     socket.on('disconnect', function(data) {
         if (!socket.username) {

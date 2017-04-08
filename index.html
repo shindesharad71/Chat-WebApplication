@@ -17,7 +17,7 @@
             <br>
             <form id="usernameForm">
                 <div class="form-group">
-                    <input class="input-lg" autocomplete="off" type="text" maxlength="15" id="username" placeholder="Enter Nick Name"> &nbsp;&nbsp;
+                    <input class="input-lg" autofocus autocomplete="off" type="text" maxlength="15" id="username" placeholder="Enter Nick Name"> &nbsp;&nbsp;
                     <input class="btn btn-lg btn-primary" type="submit" value="Submit">
                 </div>
 
@@ -29,10 +29,11 @@
         <div class="col-md-offset-1 col-md-6" id="chatWrapper">
             <h4 class="text-center" style="margin-bottom: 0px; background: #d3d3d3; padding: 20px 20px; border: 2px solid #000;">Chat Messages</h4>
             <div id="chatWindow"></div>
+
             <form id="messageForm">
                 <div class="sendBox">
                     <div class="form-group">
-                        <input class="input-lg" autocomplete="off" style="width: 395px;" type="text" placeholder="Say Something..." id="message">&nbsp;&nbsp;
+                        <input class="input-lg" autofocus autocomplete="off" style="width: 395px;" type="text" placeholder="Say Something..." id="message">&nbsp;&nbsp;
                         <input class="btn btn-lg btn-success" type="submit" value="Send">
                     </div>
                 </div>
@@ -42,10 +43,7 @@
         <div class="col-md-offset-1 col-md-3" id="chatWrapper">
 
             <h4 class="text-center" style="background: #d3d3d3; padding: 20px 20px; padding: 20px 20px; border: 2px solid #000;">Online Users</h4>
-            <div id="users">
-                <li>Sharz</li>
-                <li>John</li>
-            </div>
+            <div id="users"></div>
         </div>
     </div>
     <footer class="text-center">
@@ -68,6 +66,7 @@
             var $username = $('#username');
             var $error = $('#error');
 
+            // Nick name submit form
             $usernameForm.submit(function(e) {
                 e.preventDefault();
                 socket.emit('new user', $username.val(), function(data) {
@@ -81,6 +80,7 @@
                 });
             });
 
+            // list of all online users
             socket.on('usernames', function(data) {
                 var html = '';
                 for (i = 0; i < data.length; i++) {
@@ -89,12 +89,14 @@
                 $users.html(html);
             });
 
+            // Sending messsage
             $messageForm.submit(function(e) {
                 e.preventDefault();
                 socket.emit('send message', $message.val());
                 $message.val('');
             });
 
+            // New incoming message
             socket.on('new message', function(data) {
                 if (data.user != currentUser) {
                     $chat.append('<div class="other-msg"><strong><i><u>' + data.user + '</u></i></strong>:<br>' + data.msg + '</div><br>');
@@ -103,6 +105,43 @@
                 }
 
             });
+
+            // Typing setup
+            var typing = false;
+            var timeout = undefined;
+
+            function timeoutFunction() {
+                typing = false;
+                socket.emit("typing", false);
+            }
+
+            $("#messageForm").keypress(function(e) {
+                if (typing === false) {
+                    typing = true;
+                    socket.emit("typing", true);
+                } else {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(timeoutFunction, 5000);
+                }
+            });
+
+            // Typing message notification...
+            socket.on("isTyping", function(data) {
+                if (data.isTyping && data.person != currentUser) {
+                    $chat.append('<li class="typing text-muted text-center" id="' + data.person + '"><i>' + data.person + " is typing...</i></li>");
+
+                    timeout = setTimeout(timeoutFunction, 2000);
+                } else
+                    $("#" + data.person + "").remove();
+            });
+
+            // Auto scroll after new message!
+            $chat.bind("DOMSubtreeModified", function() {
+                $chat.animate({
+                    scrollTop: $("#chatWindow")[0].scrollHeight
+                });
+            });
+
         });
     </script>
 
