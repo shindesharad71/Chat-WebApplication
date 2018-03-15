@@ -5,5 +5,3 @@ A Simple Chat Web Application Made With Socket IO
 
 ![Demo](https://github.com/shindesharad71/Chat-WebApplication/blob/master/public/chat_demo.gif?raw=true "Chat Demo")
 
-### Todo List
-UI improvements
